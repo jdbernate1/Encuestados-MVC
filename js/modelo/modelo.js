@@ -7,12 +7,20 @@ var Modelo = function() {
 
   //inicializacion de eventos
   this.preguntaAgregada = new Evento(this);
+  this.preguntaEliminada  = new Evento(this);
 };
 
 Modelo.prototype = {
   //se obtiene el id más grande asignado a una pregunta
   obtenerUltimoId: function() {
-    return this.ultimoId;
+    var idMax = 0;
+    for (var i = 0; i < this.preguntas.length; i++) { 
+      if(this.preguntas[i].id > idMax) {
+        idMax = this.preguntas[i].id;
+      }
+    }
+    return idMax;
+    //return this.ultimoId; CON SOLO ESTO NO SE
   },
 
   //se agrega una pregunta dado un nombre y sus respuestas
