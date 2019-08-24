@@ -33,6 +33,13 @@ Modelo.prototype = {
     this.preguntaAgregada.notificar();
   },
 
+  eliminarPregunta: function(id){
+    this.preguntas = this.preguntas.filter(pregunta => pregunta.id != id)
+    this.guardar();
+    this.preguntaEliminada.notificar();
+  },
+
+
   //se guardan las preguntas
   guardar: function(){
     localStorage.setItem('preguntas',JSON.stringify(this.preguntas));
