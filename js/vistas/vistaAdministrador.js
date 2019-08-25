@@ -7,7 +7,7 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
   this.elementos = elementos;
   var contexto = this;
 
-  // suscripción de observadores
+  // suscripción de observadores  
   this.modelo.preguntaAgregada.suscribir(function() {
     contexto.reconstruirLista();
   });
@@ -84,7 +84,11 @@ VistaAdministrador.prototype = {
     //     }      
     // });
     
-  })
+  });
+
+    e.borrarTodo.click(function(){
+      contexto.controlador.eliminarTodo();
+    });
     //asociar el resto de los botones a eventos
   },
 
