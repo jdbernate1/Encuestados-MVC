@@ -67,7 +67,7 @@ VistaAdministrador.prototype = {
         respuestas.push({
           'textoRespuesta': respuesta,
           'cantidadPorRespuesta': 0
-        });
+        });//                                                         PREGUNTA AQUI: TOMA UN           
       });
       contexto.limpiarFormulario();
       contexto.controlador.agregarPregunta(value, respuestas);

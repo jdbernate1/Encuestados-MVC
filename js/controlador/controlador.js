@@ -16,5 +16,17 @@ Controlador.prototype = {
   
   eliminarTodo: function(){
     this.modelo.eliminarTodo();
+  },
+
+  editarPregunta: function(id,nuevaPregunta){
+    this.modelo.editarPregunta(id,nuevaPregunta);
+  },
+
+  agregarRespueta: function(id,respuesta){
+    this.modelo.agregarRespueta(id,respuesta);
+  },
+
+  agregarVotos: function(id,respuesta){
+    this.modelo.agregarVotos(id,respuesta);
   }
 };

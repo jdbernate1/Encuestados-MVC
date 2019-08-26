@@ -8,8 +8,10 @@ var Modelo = function() {
   //inicializacion de eventos
   this.preguntaAgregada = new Evento(this);
   this.preguntaEliminada  = new Evento(this);
-//   
 
+
+  this.verificarLocalStorage();
+  
 };
 
 function seleccionarPregunta (id,contexto){
@@ -69,11 +71,11 @@ Modelo.prototype = {
 
   },
 
-  sumarVotoRespuesta: function(id,respuesta,votos){
+  agregarVotos: function(id,respuesta){
     var preguntarElegida = seleccionarPregunta(id,this.preguntas);
     preguntarElegida.cantidadPorRespuesta.forEach(element => {
       if(element.textoRespuesta==respuesta){
-        element.cantidadPorRespuesta +=votos;
+        element.cantidadPorRespuesta ++;
       };  
     });
 
@@ -81,11 +83,18 @@ Modelo.prototype = {
   },
 
 
-
-
-
   //se guardan las preguntas
   guardar: function(){
     localStorage.setItem('preguntas',JSON.stringify(this.preguntas));
   },
+
+  verificarLocalStorage : function(){
+    if(localStorage.getItem('preguntas') !== null){
+      this.preguntas = JSON.parse(localStorage.getItem('preguntas'))
+    }
+  },
+
+  reiniciarLocalStorage: function(){
+    localStorage.setItem('preguntas',JSON.stringify([]))
+  }
 };
