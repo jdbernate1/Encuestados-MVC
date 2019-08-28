@@ -14,10 +14,7 @@ var Modelo = function() {
   
 };
 
-function seleccionarPregunta (id,contexto){
-  var seleccion = contexto.filter(pregunta => pregunta.id == id)[0];
-  return seleccion;
-}
+
 
 Modelo.prototype = {
   //se obtiene el id más grande asignado a una pregunta
@@ -52,32 +49,41 @@ Modelo.prototype = {
     var preguntaElegida = seleccionarPregunta(id,this.preguntas);
     preguntaElegida.textoPregunta = nuevaPregunta;
     this.preguntaAgregada.notificar();
+    this.guardar();
 
   },
 
   eliminarTodo: function(){
     this.preguntas = [];
     this.preguntaEliminada.notificar();
+    this.reiniciarLocalStorage();
 
   },
 
   agregarRespuesta: function(id,respuesta){
-    var preguntaElegida = seleccionarPregunta(id,this.preguntas);
+    var preguntaElegida = seleccionarPregunta(id,contexto.preguntas);
     preguntaElegida.cantidadPorRespuesta.push({
       'textoRespuesta': respuesta,
       'cantidadPorRespuesta': 0
     });
     this.preguntaAgregada.notificar();
+    this.guardar();
 
   },
 
+  seleccionarPregunta: function (id){
+    var seleccion = this.preguntas.filter(pregunta => pregunta.id == id)[0];
+    return seleccion;
+  },
+
   agregarVotos: function(id,respuesta){
-    var preguntarElegida = seleccionarPregunta(id,this.preguntas);
+    var preguntarElegida = this.seleccionarPregunta(id);
     preguntarElegida.cantidadPorRespuesta.forEach(element => {
       if(element.textoRespuesta==respuesta){
         element.cantidadPorRespuesta ++;
       };  
     });
+    this.guardar();
 
 
   },

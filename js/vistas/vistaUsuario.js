@@ -24,7 +24,8 @@ VistaUsuario.prototype = {
     var contexto = this;
     
     elementos.botonAgregar.click(function() {
-      contexto.agregarVotos(); 
+      contexto.agregarVotos();
+      alert("Respuesta Enviada");
     });
       
     this.reconstruirGrafico();
@@ -39,10 +40,13 @@ VistaUsuario.prototype = {
       var listaParaGrafico = [[clave.textoPregunta, 'Cantidad']];
       var respuestas = clave.cantidadPorRespuesta;
       respuestas.forEach (function(elemento) {
-        listaParaGrafico.push([elemento.textoRespuesta,elemento.cantidad]);
+        listaParaGrafico.push([elemento.textoRespuesta,elemento.cantidadPorRespuesta]);
       });
       contexto.dibujarGrafico(clave.textoPregunta, listaParaGrafico);
-    })
+    
+    });
+  
+    
   },
 
 
@@ -57,7 +61,6 @@ VistaUsuario.prototype = {
         text : clave.textoPregunta,
         id    : clave.id, 
       }));
-      //completar
       //agregar a listaPreguntas un elemento div con valor "clave.textoPregunta", texto "clave.textoPregunta", id "clave.id"
       var respuestas = clave.cantidadPorRespuesta;
       contexto.mostrarRespuestas(listaPreguntas,respuestas, clave);
@@ -81,13 +84,22 @@ VistaUsuario.prototype = {
 
   agregarVotos: function(){
     var contexto = this;
-    $('#preguntas').find('div').each(function(){
-        var nombrePregunta = $(this).attr('value');
-        var id = $(this).attr('id');
-        var respuestaSeleccionada = $('input[name=' + id + ']:checked').val();
-        $('input[name=' + id + ']').prop('checked',false);
-        contexto.controlador.agregarVotos(nombrePregunta,respuestaSeleccionada);
-      });
+    var objetoPreguntas =$('#preguntas').children();
+    Object.keys(objetoPreguntas).forEach(function(key){
+      var item =objetoPreguntas[key];
+      if(item.checked == true){
+        var idSeleccionado =parseInt(item.name);
+        var respuestaSelec =parseInt(item.value);
+        contexto.controlador.agregarVotos(idSeleccionado, respuestaSelec);
+      };
+    })
+    // $('#preguntas').find('div').each(function(){
+    //     var nombrePregunta = $(this).attr('value');
+    //     var id = $(this).attr('id');
+    //     var respuestaSeleccionada = $('input[name=' + id + ']:checked').val();
+    //     $('input[name=' + id + ']').prop('checked',false);
+    //     contexto.controlador.agregarVotos(nombrePregunta,respuestaSeleccionada);
+    //   });
   },
 
   dibujarGrafico: function(nombre, respuestas){

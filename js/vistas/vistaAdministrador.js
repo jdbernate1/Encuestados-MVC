@@ -64,10 +64,13 @@ VistaAdministrador.prototype = {
 
       $('[name="option[]"]').each(function() {
         var respuesta = $(this).val();
-        respuestas.push({
+        if(respuesta!=""){
+          respuestas.push({
           'textoRespuesta': respuesta,
           'cantidadPorRespuesta': 0
-        });//                                                         PREGUNTA AQUI: TOMA UN           
+          });
+        }
+//                                                         PREGUNTA AQUI: TOMA UN           
       });
       contexto.limpiarFormulario();
       contexto.controlador.agregarPregunta(value, respuestas);
