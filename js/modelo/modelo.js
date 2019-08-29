@@ -46,7 +46,7 @@ Modelo.prototype = {
   },
 
   editarPregunta: function(id,nuevaPregunta){
-    var preguntaElegida = seleccionarPregunta(id,this.preguntas);
+    var preguntaElegida =this.seleccionarPregunta(id,this.preguntas);
     preguntaElegida.textoPregunta = nuevaPregunta;
     this.preguntaAgregada.notificar();
     this.guardar();
@@ -61,7 +61,7 @@ Modelo.prototype = {
   },
 
   agregarRespuesta: function(id,respuesta){
-    var preguntaElegida = seleccionarPregunta(id,contexto.preguntas);
+    var preguntaElegida = this.seleccionarPregunta(id,contexto.preguntas);
     preguntaElegida.cantidadPorRespuesta.push({
       'textoRespuesta': respuesta,
       'cantidadPorRespuesta': 0

@@ -25,7 +25,17 @@ VistaUsuario.prototype = {
     
     elementos.botonAgregar.click(function() {
       contexto.agregarVotos();
-      alert("Respuesta Enviada");
+      swal({
+        text:"Sus respuestas han sido guardadas.",
+        icon: "success",
+        button:{
+          "OK":"OK"
+        }
+      }).then((value) => {
+        contexto.reconstruirLista();
+        contexto.reconstruirGrafico();
+      })
+    
     });
       
     this.reconstruirGrafico();

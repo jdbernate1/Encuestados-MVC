@@ -78,23 +78,46 @@ VistaAdministrador.prototype = {
 
     e.botonBorrarPregunta.click(function() {
       var idPreguntaBorrar = parseInt($('.list-group-item.active').attr('id'));
-
       contexto.controlador.eliminarPregunta(idPreguntaBorrar);
-
     //   $('#lista').find('li').each( function(){
     //     if($(this).attr('id') == idPreguntaBorrar){
     //       $(this).remove();
     //     }      
-    // });
-    
+    // }); 
   });
 
     e.borrarTodo.click(function(){
       contexto.controlador.eliminarTodo();
     });
-    //asociar el resto de los botones a eventos
-  },
 
+
+    e.botonEditarPregunta.click(function(){
+      var nuevaPregunta;
+      var idPreguntaEditar = parseInt($('.list-group-item.active').attr('id'));
+      if(isNaN(idPreguntaEditar)===false){
+        swal({
+          text: 'Ingresa la nueva pregunta.',
+          content: "input",
+          icon: "info",
+          buttons: {
+            cancel: true,
+            confirm: true,
+          }
+        }).then(name => {
+          if (name){
+          nuevaPregunta=name;
+          };
+          contexto.controlador.editarPregunta(idPreguntaEditar,nuevaPregunta);
+         swal({
+          text:'Pregunta modificada con éxito.',
+          icon: "success",
+        });
+      })
+    };
+      });
+
+  },
+  
   limpiarFormulario: function(){
     $('.form-group.answer.has-feedback.has-success').remove();
   },
