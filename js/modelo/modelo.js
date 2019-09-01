@@ -8,6 +8,7 @@ var Modelo = function() {
   //inicializacion de eventos
   this.preguntaAgregada = new Evento(this);
   this.preguntaEliminada  = new Evento(this);
+  this.preguntaVotada = new Evento(this);
 
 
   this.verificarLocalStorage();
@@ -84,6 +85,7 @@ Modelo.prototype = {
       };  
     });
     this.guardar();
+    this.preguntaVotada.notificar();
 
 
   },

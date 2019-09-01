@@ -14,6 +14,10 @@ var VistaUsuario = function(modelo, controlador, elementos) {
   this.modelo.preguntaEliminada.suscribir(function(){
     contexto.reconstruirLista();
   });
+  this.modelo.preguntaVotada.suscribir(function(){
+    contexto.reconstruirGrafico();
+    contexto.elementos.nombreUsuario.val('');
+  });
 };
 
 VistaUsuario.prototype = {
@@ -98,8 +102,8 @@ VistaUsuario.prototype = {
     Object.keys(objetoPreguntas).forEach(function(key){
       var item =objetoPreguntas[key];
       if(item.checked == true){
-        var idSeleccionado =parseInt(item.name);
-        var respuestaSelec =parseInt(item.value);
+        var idSeleccionado =item.name;
+        var respuestaSelec =item.value;
         contexto.controlador.agregarVotos(idSeleccionado, respuestaSelec);
       };
     })
